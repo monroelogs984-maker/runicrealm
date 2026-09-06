@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " Q ",
+    "CBM",
+    " D "
+  ],
+  "key": {
+    "Q": { "item": "minecraft:quartz" },
+    "C": { "item": "minecraft:popped_chorus_fruit" },
+    "B": { "item": "minecraft:polished_basalt" },
+    "M": { "item": "minecraft:magma_cream" },
+    "D": { "item": "minecraft:diamond" }
+  },
+  "result": {
+    "item": "runicrealm:runic_portal_crystal"
+  }
+}

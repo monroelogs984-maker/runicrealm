@@ -27,5 +27,14 @@ public final class RunicRealmBlocks {
                     .sound(SoundType.WOOL)
                     .pushReaction(PushReaction.DESTROY)));
 
+    // Placeholder tuning - obsidian-adjacent toughness with a faint glow, since it's
+    // meant to be a mystical portal-frame material. Adjust once the frame is built.
+    public static final RegistryObject<Block> RUNIC_PORTAL_CRYSTAL = BLOCKS.register("runic_portal_crystal",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .strength(5.0F, 6.0F)
+                    .sound(SoundType.AMETHYST)
+                    .lightLevel(state -> 7)));
+
     private RunicRealmBlocks() {}
 }
