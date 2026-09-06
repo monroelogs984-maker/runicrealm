@@ -10,6 +10,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public final class RunicRealmBlocks {
 
     public static final DeferredRegister<Block> BLOCKS =
@@ -55,16 +58,39 @@ public final class RunicRealmBlocks {
                     .sound(SoundType.GLASS)
                     .lightLevel(state -> 13)));
 
-    // First batch of glow mushroom colors - cyan/purple/blue to match the dimension's
-    // established mystical palette (portal blue, crystal purple). More colors later.
-    // Properties otherwise mirror vanilla small mushrooms (noCollission, instabreak,
-    // SoundType.GRASS) but with a strong light level instead of none.
-    public static final RegistryObject<Block> GLOW_MUSHROOM_CYAN = glowMushroom("cyan", MapColor.COLOR_CYAN);
-    public static final RegistryObject<Block> GLOWING_MYCELIUM_CYAN = glowingMycelium("cyan", MapColor.COLOR_CYAN);
-    public static final RegistryObject<Block> GLOW_MUSHROOM_PURPLE = glowMushroom("purple", MapColor.COLOR_PURPLE);
-    public static final RegistryObject<Block> GLOWING_MYCELIUM_PURPLE = glowingMycelium("purple", MapColor.COLOR_PURPLE);
-    public static final RegistryObject<Block> GLOW_MUSHROOM_BLUE = glowMushroom("blue", MapColor.COLOR_BLUE);
-    public static final RegistryObject<Block> GLOWING_MYCELIUM_BLUE = glowingMycelium("blue", MapColor.COLOR_BLUE);
+    // Full 16-color vanilla dye palette (MapColor equivalents per color, verified against
+    // vanilla wool/dye block registrations via javap). Keyed by DyeColor's serialized name.
+    public static final Map<String, MapColor> DYE_MAP_COLORS = new LinkedHashMap<>();
+    static {
+        DYE_MAP_COLORS.put("white", MapColor.SNOW);
+        DYE_MAP_COLORS.put("orange", MapColor.COLOR_ORANGE);
+        DYE_MAP_COLORS.put("magenta", MapColor.COLOR_MAGENTA);
+        DYE_MAP_COLORS.put("light_blue", MapColor.COLOR_LIGHT_BLUE);
+        DYE_MAP_COLORS.put("yellow", MapColor.COLOR_YELLOW);
+        DYE_MAP_COLORS.put("lime", MapColor.COLOR_LIGHT_GREEN);
+        DYE_MAP_COLORS.put("pink", MapColor.COLOR_PINK);
+        DYE_MAP_COLORS.put("gray", MapColor.COLOR_GRAY);
+        DYE_MAP_COLORS.put("light_gray", MapColor.COLOR_LIGHT_GRAY);
+        DYE_MAP_COLORS.put("cyan", MapColor.COLOR_CYAN);
+        DYE_MAP_COLORS.put("purple", MapColor.COLOR_PURPLE);
+        DYE_MAP_COLORS.put("blue", MapColor.COLOR_BLUE);
+        DYE_MAP_COLORS.put("brown", MapColor.COLOR_BROWN);
+        DYE_MAP_COLORS.put("green", MapColor.COLOR_GREEN);
+        DYE_MAP_COLORS.put("red", MapColor.COLOR_RED);
+        DYE_MAP_COLORS.put("black", MapColor.COLOR_BLACK);
+    }
+
+    // Full palette of glow mushrooms + matching glowing mycelium. Properties otherwise
+    // mirror vanilla small mushrooms (noCollission, instabreak, SoundType.GRASS) but with
+    // a strong light level instead of none.
+    public static final Map<String, RegistryObject<Block>> GLOW_MUSHROOMS = new LinkedHashMap<>();
+    public static final Map<String, RegistryObject<Block>> GLOWING_MYCELIUM = new LinkedHashMap<>();
+    static {
+        DYE_MAP_COLORS.forEach((color, mapColor) -> {
+            GLOW_MUSHROOMS.put(color, glowMushroom(color, mapColor));
+            GLOWING_MYCELIUM.put(color, glowingMycelium(color, mapColor));
+        });
+    }
 
     private static RegistryObject<Block> glowMushroom(String color, MapColor mapColor) {
         return BLOCKS.register("glow_mushroom_" + color, () -> new GlowMushroomBlock(BlockBehaviour.Properties.of()

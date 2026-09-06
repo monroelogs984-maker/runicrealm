@@ -18,17 +18,53 @@
     }
   },
   "features": [
-    [], [], [], [], [], [],
-    [ "runicrealm:luminous_quartz_ore" ],
-    [ "minecraft:glow_lichen", "minecraft:glowstone_extra" ],
+    [],
+    [],
+    [],
+    [],
+    [],
     [],
     [
+      "runicrealm:luminous_quartz_ore"
+    ],
+    [
+      "minecraft:glow_lichen",
+      "minecraft:glowstone_extra"
+    ],
+    [],
+    [
+      "runicrealm:glow_mushroom_scatter_white",
+      "runicrealm:glow_mushroom_patch_white",
+      "runicrealm:glow_mushroom_scatter_orange",
+      "runicrealm:glow_mushroom_patch_orange",
+      "runicrealm:glow_mushroom_scatter_magenta",
+      "runicrealm:glow_mushroom_patch_magenta",
+      "runicrealm:glow_mushroom_scatter_light_blue",
+      "runicrealm:glow_mushroom_patch_light_blue",
+      "runicrealm:glow_mushroom_scatter_yellow",
+      "runicrealm:glow_mushroom_patch_yellow",
+      "runicrealm:glow_mushroom_scatter_lime",
+      "runicrealm:glow_mushroom_patch_lime",
+      "runicrealm:glow_mushroom_scatter_pink",
+      "runicrealm:glow_mushroom_patch_pink",
+      "runicrealm:glow_mushroom_scatter_gray",
+      "runicrealm:glow_mushroom_patch_gray",
+      "runicrealm:glow_mushroom_scatter_light_gray",
+      "runicrealm:glow_mushroom_patch_light_gray",
       "runicrealm:glow_mushroom_scatter_cyan",
       "runicrealm:glow_mushroom_patch_cyan",
       "runicrealm:glow_mushroom_scatter_purple",
       "runicrealm:glow_mushroom_patch_purple",
       "runicrealm:glow_mushroom_scatter_blue",
-      "runicrealm:glow_mushroom_patch_blue"
+      "runicrealm:glow_mushroom_patch_blue",
+      "runicrealm:glow_mushroom_scatter_brown",
+      "runicrealm:glow_mushroom_patch_brown",
+      "runicrealm:glow_mushroom_scatter_green",
+      "runicrealm:glow_mushroom_patch_green",
+      "runicrealm:glow_mushroom_scatter_red",
+      "runicrealm:glow_mushroom_patch_red",
+      "runicrealm:glow_mushroom_scatter_black",
+      "runicrealm:glow_mushroom_patch_black"
     ],
     []
   ],

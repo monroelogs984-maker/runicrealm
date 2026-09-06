@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "runicrealm:block/glowing_mycelium_brown"
+  }
+}

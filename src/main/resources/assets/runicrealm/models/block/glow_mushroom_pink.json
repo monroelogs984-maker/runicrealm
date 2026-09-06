@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "runicrealm:block/glow_mushroom_pink"
+  }
+}

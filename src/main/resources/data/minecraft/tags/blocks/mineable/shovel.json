@@ -1,8 +1,21 @@
 {
   "replace": false,
   "values": [
+    "runicrealm:glowing_mycelium_white",
+    "runicrealm:glowing_mycelium_orange",
+    "runicrealm:glowing_mycelium_magenta",
+    "runicrealm:glowing_mycelium_light_blue",
+    "runicrealm:glowing_mycelium_yellow",
+    "runicrealm:glowing_mycelium_lime",
+    "runicrealm:glowing_mycelium_pink",
+    "runicrealm:glowing_mycelium_gray",
+    "runicrealm:glowing_mycelium_light_gray",
     "runicrealm:glowing_mycelium_cyan",
     "runicrealm:glowing_mycelium_purple",
-    "runicrealm:glowing_mycelium_blue"
+    "runicrealm:glowing_mycelium_blue",
+    "runicrealm:glowing_mycelium_brown",
+    "runicrealm:glowing_mycelium_green",
+    "runicrealm:glowing_mycelium_red",
+    "runicrealm:glowing_mycelium_black"
   ]
 }

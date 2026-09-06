@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        { "data": { "Name": "runicrealm:glow_mushroom_white" }, "weight": 4 },
+        { "data": { "Name": "minecraft:air" }, "weight": 6 }
+      ]
+    }
+  }
+}
