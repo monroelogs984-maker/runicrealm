@@ -1,6 +1,5 @@
 package com.glennfo.runicrealm.item;
 
-import com.glennfo.runicrealm.block.RunicRealmBlocks;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,6 +11,7 @@ import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.CandleCakeBlock;
@@ -20,8 +20,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
  * Acts like vanilla flint and steel (campfire/candle lighting is untouched),
- * but always lights {@link RunicRealmBlocks#ETERNAL_SOUL_FIRE} - soul fire
- * that survives anywhere, not just soul sand/soil - when igniting open ground.
+ * but always forces plain vanilla soul fire ({@link Blocks#SOUL_FIRE}) when
+ * igniting open ground, regardless of what's below the target position.
+ * It's the same soul fire block placing it on soul sand/soil normally would
+ * give you - it just won't survive anywhere else, same as always.
  */
 public class SoulAndSteelItem extends FlintAndSteelItem {
     public SoulAndSteelItem(Properties properties) {
@@ -40,10 +42,10 @@ public class SoulAndSteelItem extends FlintAndSteelItem {
         }
 
         BlockPos targetPos = clickedPos.relative(context.getClickedFace());
-        if (!level.getBlockState(targetPos).isAir()) {
+        BlockState soulFireState = Blocks.SOUL_FIRE.defaultBlockState();
+        if (!level.getBlockState(targetPos).isAir() || !soulFireState.canSurvive(level, targetPos)) {
             return InteractionResult.FAIL;
         }
-        BlockState soulFireState = RunicRealmBlocks.ETERNAL_SOUL_FIRE.get().defaultBlockState();
 
         level.playSound(player, targetPos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS,
                 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
