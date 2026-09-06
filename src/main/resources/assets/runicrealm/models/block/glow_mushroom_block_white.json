@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:block/template_single_face",
+  "textures": { "texture": "runicrealm:block/glow_mushroom_block_white" }
+}

@@ -36,5 +36,22 @@
   "block.runicrealm.glow_mushroom_red": "Red Glow Mushroom",
   "block.runicrealm.glowing_mycelium_red": "Red Glowing Mycelium",
   "block.runicrealm.glow_mushroom_black": "Black Glow Mushroom",
-  "block.runicrealm.glowing_mycelium_black": "Black Glowing Mycelium"
+  "block.runicrealm.glowing_mycelium_black": "Black Glowing Mycelium",
+  "block.runicrealm.glow_mushroom_stem": "Glow Mushroom Stem",
+  "block.runicrealm.glow_mushroom_block_white": "White Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_orange": "Orange Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_magenta": "Magenta Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_light_blue": "Light Blue Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_yellow": "Yellow Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_lime": "Lime Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_pink": "Pink Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_gray": "Gray Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_light_gray": "Light Gray Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_cyan": "Cyan Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_purple": "Purple Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_blue": "Blue Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_brown": "Brown Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_green": "Green Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_red": "Red Glow Mushroom Block",
+  "block.runicrealm.glow_mushroom_block_black": "Black Glow Mushroom Block"
 }

@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "runicrealm:glow_mushroom_stem",
+    "runicrealm:glow_mushroom_block_white",
+    "runicrealm:glow_mushroom_block_orange",
+    "runicrealm:glow_mushroom_block_magenta",
+    "runicrealm:glow_mushroom_block_light_blue",
+    "runicrealm:glow_mushroom_block_yellow",
+    "runicrealm:glow_mushroom_block_lime",
+    "runicrealm:glow_mushroom_block_pink",
+    "runicrealm:glow_mushroom_block_gray",
+    "runicrealm:glow_mushroom_block_light_gray",
+    "runicrealm:glow_mushroom_block_cyan",
+    "runicrealm:glow_mushroom_block_purple",
+    "runicrealm:glow_mushroom_block_blue",
+    "runicrealm:glow_mushroom_block_brown",
+    "runicrealm:glow_mushroom_block_green",
+    "runicrealm:glow_mushroom_block_red",
+    "runicrealm:glow_mushroom_block_black"
+  ]
+}

@@ -28,10 +28,14 @@ public final class RunicRealmItems {
 
     public static final Map<String, RegistryObject<Item>> GLOW_MUSHROOM_ITEMS = new LinkedHashMap<>();
     public static final Map<String, RegistryObject<Item>> GLOWING_MYCELIUM_ITEMS = new LinkedHashMap<>();
+    public static final Map<String, RegistryObject<Item>> GLOW_MUSHROOM_CAP_ITEMS = new LinkedHashMap<>();
     static {
         RunicRealmBlocks.GLOW_MUSHROOMS.forEach((color, block) -> GLOW_MUSHROOM_ITEMS.put(color, blockItem(block)));
         RunicRealmBlocks.GLOWING_MYCELIUM.forEach((color, block) -> GLOWING_MYCELIUM_ITEMS.put(color, blockItem(block)));
+        RunicRealmBlocks.GLOW_MUSHROOM_CAPS.forEach((color, block) -> GLOW_MUSHROOM_CAP_ITEMS.put(color, blockItem(block)));
     }
+
+    public static final RegistryObject<Item> GLOW_MUSHROOM_STEM = blockItem(RunicRealmBlocks.GLOW_MUSHROOM_STEM);
 
     private static RegistryObject<Item> blockItem(RegistryObject<Block> block) {
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));

@@ -2,8 +2,10 @@ package com.glennfo.runicrealm.block;
 
 import com.glennfo.runicrealm.RunicRealm;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
@@ -109,6 +111,34 @@ public final class RunicRealmBlocks {
                 .sound(SoundType.GRASS)
                 .lightLevel(state -> 6)));
     }
+
+    // Giant mushroom cap (per color) + shared stem. HugeMushroomBlock is vanilla's own
+    // generic class (no color-specific logic, just 6 boolean face properties for cap-vs-
+    // pore texture) - reused directly rather than writing a new Block class. Properties
+    // mirror vanilla's RED_MUSHROOM_BLOCK/MUSHROOM_STEM exactly (verified via javap):
+    // strength 0.2, SoundType.WOOD, NoteBlockInstrument.BASS, ignitedByLava. Light levels
+    // (cap bright, stem dim) are our own addition - vanilla giant mushrooms don't glow.
+    public static final Map<String, RegistryObject<Block>> GLOW_MUSHROOM_CAPS = new LinkedHashMap<>();
+    static {
+        DYE_MAP_COLORS.forEach((color, mapColor) ->
+                GLOW_MUSHROOM_CAPS.put(color, BLOCKS.register("glow_mushroom_block_" + color,
+                        () -> new HugeMushroomBlock(BlockBehaviour.Properties.of()
+                                .mapColor(mapColor)
+                                .instrument(NoteBlockInstrument.BASS)
+                                .strength(0.2F)
+                                .sound(SoundType.WOOD)
+                                .lightLevel(state -> 14)
+                                .ignitedByLava()))));
+    }
+
+    public static final RegistryObject<Block> GLOW_MUSHROOM_STEM = BLOCKS.register("glow_mushroom_stem",
+            () -> new HugeMushroomBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WOOL)
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(0.2F)
+                    .sound(SoundType.WOOD)
+                    .lightLevel(state -> 8)
+                    .ignitedByLava()));
 
     private RunicRealmBlocks() {}
 }
