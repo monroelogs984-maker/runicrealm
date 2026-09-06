@@ -55,5 +55,34 @@ public final class RunicRealmBlocks {
                     .sound(SoundType.GLASS)
                     .lightLevel(state -> 13)));
 
+    // First batch of glow mushroom colors - cyan/purple/blue to match the dimension's
+    // established mystical palette (portal blue, crystal purple). More colors later.
+    // Properties otherwise mirror vanilla small mushrooms (noCollission, instabreak,
+    // SoundType.GRASS) but with a strong light level instead of none.
+    public static final RegistryObject<Block> GLOW_MUSHROOM_CYAN = glowMushroom("cyan", MapColor.COLOR_CYAN);
+    public static final RegistryObject<Block> GLOWING_MYCELIUM_CYAN = glowingMycelium("cyan", MapColor.COLOR_CYAN);
+    public static final RegistryObject<Block> GLOW_MUSHROOM_PURPLE = glowMushroom("purple", MapColor.COLOR_PURPLE);
+    public static final RegistryObject<Block> GLOWING_MYCELIUM_PURPLE = glowingMycelium("purple", MapColor.COLOR_PURPLE);
+    public static final RegistryObject<Block> GLOW_MUSHROOM_BLUE = glowMushroom("blue", MapColor.COLOR_BLUE);
+    public static final RegistryObject<Block> GLOWING_MYCELIUM_BLUE = glowingMycelium("blue", MapColor.COLOR_BLUE);
+
+    private static RegistryObject<Block> glowMushroom(String color, MapColor mapColor) {
+        return BLOCKS.register("glow_mushroom_" + color, () -> new GlowMushroomBlock(BlockBehaviour.Properties.of()
+                .mapColor(mapColor)
+                .noCollission()
+                .instabreak()
+                .sound(SoundType.GRASS)
+                .lightLevel(state -> 15)
+                .pushReaction(PushReaction.DESTROY)));
+    }
+
+    private static RegistryObject<Block> glowingMycelium(String color, MapColor mapColor) {
+        return BLOCKS.register("glowing_mycelium_" + color, () -> new Block(BlockBehaviour.Properties.of()
+                .mapColor(mapColor)
+                .strength(0.6F)
+                .sound(SoundType.GRASS)
+                .lightLevel(state -> 6)));
+    }
+
     private RunicRealmBlocks() {}
 }

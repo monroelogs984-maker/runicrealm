@@ -21,7 +21,16 @@
     [], [], [], [], [], [],
     [ "runicrealm:luminous_quartz_ore" ],
     [ "minecraft:glow_lichen", "minecraft:glowstone_extra" ],
-    [], [], []
+    [],
+    [
+      "runicrealm:glow_mushroom_scatter_cyan",
+      "runicrealm:glow_mushroom_patch_cyan",
+      "runicrealm:glow_mushroom_scatter_purple",
+      "runicrealm:glow_mushroom_patch_purple",
+      "runicrealm:glow_mushroom_scatter_blue",
+      "runicrealm:glow_mushroom_patch_blue"
+    ],
+    []
   ],
   "spawn_costs": {},
   "spawners": {

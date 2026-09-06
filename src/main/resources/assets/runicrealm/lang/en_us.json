@@ -4,5 +4,11 @@
   "block.runicrealm.eternal_soul_fire": "Soul Fire",
   "block.runicrealm.runic_portal_crystal": "Runic Portal Crystal",
   "block.runicrealm.runic_portal": "Runic Portal",
-  "block.runicrealm.luminous_quartz_ore": "Luminous Quartz Ore"
+  "block.runicrealm.luminous_quartz_ore": "Luminous Quartz Ore",
+  "block.runicrealm.glow_mushroom_cyan": "Cyan Glow Mushroom",
+  "block.runicrealm.glowing_mycelium_cyan": "Cyan Glowing Mycelium",
+  "block.runicrealm.glow_mushroom_purple": "Purple Glow Mushroom",
+  "block.runicrealm.glowing_mycelium_purple": "Purple Glowing Mycelium",
+  "block.runicrealm.glow_mushroom_blue": "Blue Glow Mushroom",
+  "block.runicrealm.glowing_mycelium_blue": "Blue Glowing Mycelium"
 }
