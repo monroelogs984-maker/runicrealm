@@ -46,5 +46,14 @@ public final class RunicRealmBlocks {
                     .lightLevel(state -> 11)
                     .pushReaction(PushReaction.BLOCK)));
 
+    // Ore-like light source scattered through the dimension for baseline visibility.
+    // Placeholder texture reuses vanilla glowstone pending custom art.
+    public static final RegistryObject<Block> LUMINOUS_QUARTZ_ORE = BLOCKS.register("luminous_quartz_ore",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .strength(3.0F)
+                    .sound(SoundType.GLASS)
+                    .lightLevel(state -> 13)));
+
     private RunicRealmBlocks() {}
 }

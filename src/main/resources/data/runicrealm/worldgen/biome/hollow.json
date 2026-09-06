@@ -19,8 +19,9 @@
   },
   "features": [
     [], [], [], [], [], [],
-    [ "runicrealm:quartz_ore" ],
-    [], [], [], []
+    [ "runicrealm:quartz_ore", "runicrealm:luminous_quartz_ore" ],
+    [ "minecraft:glow_lichen", "minecraft:glowstone_extra" ],
+    [], [], []
   ],
   "spawn_costs": {},
   "spawners": {

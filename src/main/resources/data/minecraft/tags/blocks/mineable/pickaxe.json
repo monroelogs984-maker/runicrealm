@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "runicrealm:runic_portal_crystal"
+    "runicrealm:runic_portal_crystal",
+    "runicrealm:luminous_quartz_ore"
   ]
 }

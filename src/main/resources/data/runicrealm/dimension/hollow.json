@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:overworld_caves",
+  "type": "runicrealm:hollow",
   "generator": {
     "type": "minecraft:noise",
     "settings": "runicrealm:hollow",
