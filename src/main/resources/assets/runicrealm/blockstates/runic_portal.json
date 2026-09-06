@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "axis=x": { "model": "runicrealm:block/runic_portal_ns" },
+    "axis=z": { "model": "runicrealm:block/runic_portal_ew" }
+  }
+}

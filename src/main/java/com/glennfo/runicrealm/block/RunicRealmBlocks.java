@@ -36,5 +36,15 @@ public final class RunicRealmBlocks {
                     .sound(SoundType.AMETHYST)
                     .lightLevel(state -> 7)));
 
+    // Properties mirror vanilla Blocks.NETHER_PORTAL exactly (verified via javap):
+    // unbreakable (-1 strength), no collision, glassy sound, light level 11.
+    public static final RegistryObject<Block> RUNIC_PORTAL = BLOCKS.register("runic_portal",
+            () -> new RunicPortalBlock(BlockBehaviour.Properties.of()
+                    .noCollission()
+                    .strength(-1.0F)
+                    .sound(SoundType.GLASS)
+                    .lightLevel(state -> 11)
+                    .pushReaction(PushReaction.BLOCK)));
+
     private RunicRealmBlocks() {}
 }
