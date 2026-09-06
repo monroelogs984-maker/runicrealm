@@ -1,0 +1,60 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+
+version = '0.0.1-1.20.1'
+group = 'com.glennfo.runicrealm'
+archivesBaseName = 'runicrealm'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: "${minecraft_version}"
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                runicrealm { source sourceSets.main }
+            }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                runicrealm { source sourceSets.main }
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'      : 'runicrealm',
+            'Specification-Vendor'     : 'glennfo',
+            'Specification-Version'    : '1',
+            'Implementation-Title'     : project.name,
+            'Implementation-Version'   : "${version}",
+            'Implementation-Vendor'    : 'glennfo'
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+task deploy {
+    dependsOn build
+    doLast {
+        copy {
+            from "build/libs/${archivesBaseName}-${version}.jar"
+            into '/home/glenn/Documents/curseforge/minecraft/Instances/Dimension Testing/mods'
+        }
+        println "[DEPLOY] runicrealm → Dimension Testing instance"
+    }
+}

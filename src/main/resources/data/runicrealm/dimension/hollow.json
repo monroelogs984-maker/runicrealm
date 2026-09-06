@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:overworld_caves",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "runicrealm:hollow",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "runicrealm:hollow"
+    }
+  }
+}

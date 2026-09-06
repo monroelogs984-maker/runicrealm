@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[46,)"
+license="MIT"
+
+[[mods]]
+modId="runicrealm"
+version="${file.jarVersion}"
+displayName="Runic Realm (WIP)"
+authors="glennfo"
+description='''
+Testbed mod for a new custom dimension. Currently a bare stone cave world, no gameplay content yet.
+'''
+
+[[dependencies.runicrealm]]
+    modId="forge"
+    mandatory=true
+    versionRange="[46,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.runicrealm]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
