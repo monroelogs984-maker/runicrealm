@@ -1,6 +1,8 @@
 {
   "carvers": {
-    "air": []
+    "air": [
+      "runicrealm:connector_veins"
+    ]
   },
   "downfall": 0.0,
   "has_precipitation": false,
