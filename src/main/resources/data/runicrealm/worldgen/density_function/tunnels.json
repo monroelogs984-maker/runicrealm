@@ -5,13 +5,13 @@
     "argument": {
       "type": "minecraft:range_choice",
       "input": "minecraft:y",
-      "max_exclusive": 114.0,
-      "min_inclusive": -52.0,
+      "max_exclusive": 107.0,
+      "min_inclusive": -44.0,
       "when_in_range": {
         "type": "minecraft:noise",
         "noise": "minecraft:noodle",
-        "xz_scale": 0.5,
-        "y_scale": 0.5
+        "xz_scale": 0.2,
+        "y_scale": 0.2
       },
       "when_out_of_range": -1.0
     }
@@ -26,8 +26,8 @@
       "argument": {
         "type": "minecraft:range_choice",
         "input": "minecraft:y",
-        "max_exclusive": 114.0,
-        "min_inclusive": -52.0,
+        "max_exclusive": 107.0,
+        "min_inclusive": -44.0,
         "when_in_range": {
           "type": "minecraft:add",
           "argument1": -0.07500000000000001,
@@ -37,8 +37,8 @@
             "argument2": {
               "type": "minecraft:noise",
               "noise": "minecraft:noodle_thickness",
-              "xz_scale": 0.5,
-              "y_scale": 0.5
+              "xz_scale": 0.2,
+              "y_scale": 0.2
             }
           }
         },
@@ -59,13 +59,13 @@
               "argument": {
                 "type": "minecraft:range_choice",
                 "input": "minecraft:y",
-                "max_exclusive": 114.0,
-                "min_inclusive": -52.0,
+                "max_exclusive": 107.0,
+                "min_inclusive": -44.0,
                 "when_in_range": {
                   "type": "minecraft:noise",
                   "noise": "minecraft:noodle_ridge_a",
-                  "xz_scale": 1.3333333333333333,
-                  "y_scale": 1.3333333333333333
+                  "xz_scale": 0.5333333333333333,
+                  "y_scale": 0.5333333333333333
                 },
                 "when_out_of_range": 0.0
               }
@@ -78,13 +78,13 @@
               "argument": {
                 "type": "minecraft:range_choice",
                 "input": "minecraft:y",
-                "max_exclusive": 114.0,
-                "min_inclusive": -52.0,
+                "max_exclusive": 107.0,
+                "min_inclusive": -44.0,
                 "when_in_range": {
                   "type": "minecraft:noise",
                   "noise": "minecraft:noodle_ridge_b",
-                  "xz_scale": 1.3333333333333333,
-                  "y_scale": 1.3333333333333333
+                  "xz_scale": 0.5333333333333333,
+                  "y_scale": 0.5333333333333333
                 },
                 "when_out_of_range": 0.0
               }
@@ -103,13 +103,13 @@
                 "argument": {
                   "type": "minecraft:range_choice",
                   "input": "minecraft:y",
-                  "max_exclusive": 114.0,
-                  "min_inclusive": -52.0,
+                  "max_exclusive": 107.0,
+                  "min_inclusive": -44.0,
                   "when_in_range": {
                     "type": "minecraft:noise",
                     "noise": "minecraft:noodle_ridge_a",
-                    "xz_scale": 1.3333333333333333,
-                    "y_scale": 1.3333333333333333
+                    "xz_scale": 0.5333333333333333,
+                    "y_scale": 0.5333333333333333
                   },
                   "when_out_of_range": 0.0
                 }
@@ -122,13 +122,13 @@
                 "argument": {
                   "type": "minecraft:range_choice",
                   "input": "minecraft:y",
-                  "max_exclusive": 114.0,
-                  "min_inclusive": -52.0,
+                  "max_exclusive": 107.0,
+                  "min_inclusive": -44.0,
                   "when_in_range": {
                     "type": "minecraft:noise",
                     "noise": "minecraft:noodle_ridge_b",
-                    "xz_scale": 1.3333333333333333,
-                    "y_scale": 1.3333333333333333
+                    "xz_scale": 0.5333333333333333,
+                    "y_scale": 0.5333333333333333
                   },
                   "when_out_of_range": 0.0
                 }
