@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -65,6 +66,22 @@ public final class RunicRealmBlocks {
                     .sound(SoundType.GLASS)
                     .lightLevel(state -> 13),
                     UniformInt.of(6, 15)));
+
+    // Reuses vanilla VineBlock directly (same attachment/spread mechanics as the real
+    // vines block, per Glenn's ask) with vanilla's own exact properties (verified via
+    // javap): mapColor PLANT, replaceable, noCollission, randomTicks, strength 0.2,
+    // SoundType.VINE, ignitedByLava, pushReaction DESTROY. Only the loot table differs
+    // (always drops an item here, vanilla vines need shears).
+    public static final RegistryObject<Block> CAVE_ROOT_VINE = BLOCKS.register("cave_root_vine",
+            () -> new VineBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .replaceable()
+                    .noCollission()
+                    .randomTicks()
+                    .strength(0.2F)
+                    .sound(SoundType.VINE)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)));
 
     // Full 16-color vanilla dye palette (MapColor equivalents per color, verified against
     // vanilla wool/dye block registrations via javap). Keyed by DyeColor's serialized name.

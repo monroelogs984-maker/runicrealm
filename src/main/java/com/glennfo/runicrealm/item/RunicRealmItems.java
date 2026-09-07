@@ -2,6 +2,9 @@ package com.glennfo.runicrealm.item;
 
 import com.glennfo.runicrealm.RunicRealm;
 import com.glennfo.runicrealm.block.RunicRealmBlocks;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -30,6 +33,20 @@ public final class RunicRealmItems {
     // ore block itself).
     public static final RegistryObject<Item> LUMINOUS_QUARTZ = ITEMS.register("luminous_quartz",
             () -> new Item(new Item.Properties()));
+
+    // Same BlockItem-with-food-properties pattern as vanilla Sweet Berries: right-clicking
+    // a valid wall/ceiling plants a new Cave Root Vine strip (ordinary BlockItem
+    // placement, since VineBlock's own getStateForPlacement handles the face logic),
+    // right-clicking anywhere else eats it. 1.5 drumsticks = 3 nutrition (each icon is
+    // 2 nutrition); 15s of Haste I (300 ticks, amplifier 0) on every eat.
+    private static final FoodProperties CAVE_ROOT_FOOD = new FoodProperties.Builder()
+            .nutrition(3)
+            .saturationMod(0.3F)
+            .effect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 300, 0), 1.0F)
+            .build();
+
+    public static final RegistryObject<Item> CAVE_ROOT = ITEMS.register("cave_root",
+            () -> new BlockItem(RunicRealmBlocks.CAVE_ROOT_VINE.get(), new Item.Properties().food(CAVE_ROOT_FOOD)));
 
     public static final Map<String, RegistryObject<Item>> GLOW_MUSHROOM_ITEMS = new LinkedHashMap<>();
     public static final Map<String, RegistryObject<Item>> GLOWING_MYCELIUM_ITEMS = new LinkedHashMap<>();

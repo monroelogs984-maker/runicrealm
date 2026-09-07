@@ -16,6 +16,9 @@ public final class RunicRealmClient {
             // flowers - otherwise the transparent parts of the sprite render solid.
             RunicRealmBlocks.GLOW_MUSHROOMS.values()
                     .forEach(block -> ItemBlockRenderTypes.setRenderLayer(block.get(), RenderType.cutout()));
+            // Same bug class again: the vine texture's transparent silhouette needs cutout
+            // or it renders as an opaque square, exactly like soul fire/mushrooms before it.
+            ItemBlockRenderTypes.setRenderLayer(RunicRealmBlocks.CAVE_ROOT_VINE.get(), RenderType.cutout());
         });
     }
 

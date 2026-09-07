@@ -16,5 +16,8 @@ public final class RunicRealmFeatures {
     public static final RegistryObject<Feature<SoulFireClumpFeature.Config>> SOUL_FIRE_CLUMP =
             FEATURES.register("soul_fire_clump", () -> new SoulFireClumpFeature(SoulFireClumpFeature.Config.CODEC));
 
+    public static final RegistryObject<Feature<CaveRootFeature.Config>> CAVE_ROOT =
+            FEATURES.register("cave_root", () -> new CaveRootFeature(CaveRootFeature.Config.CODEC));
+
     private RunicRealmFeatures() {}
 }

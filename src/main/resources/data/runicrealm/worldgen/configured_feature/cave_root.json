@@ -1,0 +1,12 @@
+{
+  "type": "runicrealm:cave_root",
+  "config": {
+    "length": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 2,
+        "max_inclusive": 5
+      }
+    }
+  }
+}
