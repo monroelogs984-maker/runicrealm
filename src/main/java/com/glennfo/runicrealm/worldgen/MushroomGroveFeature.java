@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -33,8 +34,20 @@ import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatch
  * now search independently: the patch uses a lenient floor search (any
  * sturdy footing, same as originally), and the giant mushroom uses its own
  * stricter search requiring both vertical clearance and a bit of horizontal
- * room around where the canopy would sit (foliage_radius 3) - closer to
- * what HugeMushroomFeature's own internal space-check actually needs.
+ * room around where the canopy would sit (foliage_radius 3).
+ *
+ * The actual reason the giant mushroom kept failing regardless of room,
+ * found by reading HugeRedMushroomFeature/AbstractHugeMushroomFeature's
+ * real isValidPosition() via javap: it requires the block directly below
+ * the origin to be dirt OR tagged #minecraft:mushroom_grow_block - not
+ * just "sturdy," a specific floor-type whitelist. This dimension's terrain
+ * is plain stone, which is neither, so every attempt failed at that check
+ * before space was even considered. Fixed two ways: added our 16
+ * glowing_mycelium_<color> blocks to that tag (data/minecraft/tags/blocks/
+ * mushroom_grow_block.json), and explicitly place the matching mycelium
+ * ground state directly under the giant mushroom's own chosen floor before
+ * calling HUGE_RED_MUSHROOM - its search runs independently of the patch's,
+ * so it can't just hope the patch happened to convert the same spot.
  */
 public class MushroomGroveFeature extends Feature<MushroomGroveFeature.Config> {
     // Matches this mod's established bedrock-safe Y band (see tunnels.json/soul_rift.json/etc.).
@@ -59,8 +72,16 @@ public class MushroomGroveFeature extends Feature<MushroomGroveFeature.Config> {
                 context.chunkGenerator(), context.random(), patchFloor);
 
         BlockPos mushroomFloor = findMushroomFloor(level, origin);
-        boolean mushroomPlaced = mushroomFloor != null && Feature.HUGE_RED_MUSHROOM.place(config.mushroom(), level,
-                context.chunkGenerator(), context.random(), mushroomFloor);
+        boolean mushroomPlaced = false;
+        if (mushroomFloor != null) {
+            RandomSource random = context.random();
+            // HugeRedMushroomFeature.isValidPosition() requires the floor to be dirt or
+            // #minecraft:mushroom_grow_block (verified via javap) - place our own mycelium
+            // there directly rather than hoping the patch's independent footprint covers it.
+            level.setBlock(mushroomFloor.below(), config.patch().groundState.getState(random, mushroomFloor.below()), 3);
+            mushroomPlaced = Feature.HUGE_RED_MUSHROOM.place(config.mushroom(), level,
+                    context.chunkGenerator(), random, mushroomFloor);
+        }
 
         return patchPlaced || mushroomPlaced;
     }
