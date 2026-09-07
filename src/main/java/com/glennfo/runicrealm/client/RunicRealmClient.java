@@ -4,7 +4,11 @@ import com.glennfo.runicrealm.block.RunicRealmBlocks;
 import com.glennfo.runicrealm.entity.RunicRealmEntities;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.IronGolemRenderer;
+import net.minecraft.client.renderer.entity.SilverfishRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
+import net.minecraft.client.renderer.entity.VexRenderer;
+import net.minecraft.client.renderer.entity.ZombieRenderer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -28,6 +32,14 @@ public final class RunicRealmClient {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(RunicRealmEntities.MINER_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(RunicRealmEntities.FIREFLY.get(), FireflyRenderer::new);
+        // Each new hostile extends the exact vanilla class its renderer is generic over, so
+        // vanilla's own model/texture render it directly - no new art, only equipment/stats
+        // differ. Visual placeholder until real crystal/corrupted-themed art exists.
+        event.registerEntityRenderer(RunicRealmEntities.SPELEOTHEM_GUARDIAN.get(), IronGolemRenderer::new);
+        event.registerEntityRenderer(RunicRealmEntities.RIFT_STALKER.get(), ZombieRenderer::new);
+        event.registerEntityRenderer(RunicRealmEntities.CORRUPTED_WISP.get(), VexRenderer::new);
+        event.registerEntityRenderer(RunicRealmEntities.CORRUPTED_ARMOR.get(), ZombieRenderer::new);
+        event.registerEntityRenderer(RunicRealmEntities.POOL_LURKER.get(), SilverfishRenderer::new);
     }
 
     private RunicRealmClient() {}

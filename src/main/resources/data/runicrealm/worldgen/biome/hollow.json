@@ -100,6 +100,36 @@
         "weight": 50,
         "minCount": 1,
         "maxCount": 2
+      },
+      {
+        "type": "runicrealm:speleothem_guardian",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "runicrealm:rift_stalker",
+        "weight": 60,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "runicrealm:corrupted_wisp",
+        "weight": 50,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "runicrealm:corrupted_armor",
+        "weight": 25,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "runicrealm:pool_lurker",
+        "weight": 60,
+        "minCount": 1,
+        "maxCount": 3
       }
     ],
     "underground_water_creature": [],
