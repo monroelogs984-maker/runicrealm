@@ -26,19 +26,20 @@ import java.util.List;
  * blob over time, not a clean strip).
  *
  * Second version sampled a neighborhood of random candidates around the
- * origin instead of testing only the exact origin, but that still wasn't
- * reliable enough - Glenn reported still seeing none. Root problem: over the
- * huge Y range this placement can land in (height_range spans ~150 blocks),
- * caves/tunnels/pockets are a small fraction of the total volume, so a
- * modest local search box around one random Y often doesn't touch open space
- * at all, not just "misses the exact wall." Fixed properly this time: a full
- * vertical scan of the origin's (x,z) column across the mod's whole
- * bedrock-safe Y band, same fix already applied to MushroomGroveFeature for
- * the identical underlying reason. If that column touches a cave anywhere in
- * the band, this finds it.
+ * origin instead of testing only the exact origin, still wasn't reliable
+ * enough - height_range placement has no relationship to real cave shape, so
+ * a small local search box around one random Y often doesn't touch open
+ * space at all. Third version switched to a full vertical column scan
+ * (still here), fixing the "never even near a cave" problem, but Glenn still
+ * reported seeing none - so this pass also widens what counts as a valid
+ * attachment: ceilings (UP) now count alongside the 4 walls, roughly
+ * doubling how many found air cells actually have somewhere to attach (a
+ * cell deep in a large pocket may have no adjacent wall in any horizontal
+ * direction but still have solid rock directly overhead).
  */
 public class CaveRootFeature extends Feature<CaveRootFeature.Config> {
-    private static final Direction[] HORIZONTAL = {Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
+    private static final Direction[] ATTACH_DIRECTIONS =
+            {Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
     // Matches this mod's established bedrock-safe Y band (see tunnels.json/soul_rift.json/etc.).
     private static final int MIN_Y = -44;
     private static final int MAX_Y = 107;
@@ -71,15 +72,24 @@ public class CaveRootFeature extends Feature<CaveRootFeature.Config> {
         return false;
     }
 
-    /** Checks all 4 horizontal directions and picks randomly among the ones with a real wall. */
+    /**
+     * Prefers a wall (proper long strip) when one exists; only falls back to the
+     * ceiling (UP - a real attachment, but placeStrip below will cut it short at
+     * 1 block since the vine itself isn't solid) for cells with no wall at all,
+     * which would otherwise fail outright - e.g. a cell deep inside a large pocket.
+     */
     private Direction pickValidFace(WorldGenLevel level, BlockPos pos, RandomSource random) {
-        List<Direction> valid = new ArrayList<>(4);
-        for (Direction direction : HORIZONTAL) {
+        List<Direction> validWalls = new ArrayList<>(4);
+        for (int i = 0; i < 4; i++) {
+            Direction direction = ATTACH_DIRECTIONS[i];
             if (VineBlock.isAcceptableNeighbour(level, pos.relative(direction), direction)) {
-                valid.add(direction);
+                validWalls.add(direction);
             }
         }
-        return valid.isEmpty() ? null : valid.get(random.nextInt(valid.size()));
+        if (!validWalls.isEmpty()) {
+            return validWalls.get(random.nextInt(validWalls.size()));
+        }
+        return VineBlock.isAcceptableNeighbour(level, pos.above(), Direction.UP) ? Direction.UP : null;
     }
 
     private boolean placeStrip(WorldGenLevel level, BlockPos start, Direction face, int length) {

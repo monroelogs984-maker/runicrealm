@@ -25,14 +25,22 @@ import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatch
  * turned out to almost never actually be a valid floor spot: height_range
  * placement has no relationship to real cave shape, so the raw origin is
  * usually embedded in solid rock or floating in open air (same root cause
- * diagnosed and fixed for Cave Root Vine). Now does its own floor search
- * first - a full vertical scan of the origin's column - and hands the
- * sub-features an actual floor position instead of a blind guess.
+ * diagnosed and fixed for Cave Root Vine). A full vertical scan of the
+ * origin's column fixed that, but Glenn still reported seeing none - the
+ * likely remaining cause is HugeMushroomFeature's own internal space-check
+ * silently declining to grow in a floor spot with a low ceiling (any random
+ * air-above-solid cell might be inside a narrow tunnel with only a couple
+ * blocks of headroom). Now also requires real vertical clearance above the
+ * floor before accepting it, skipping past cramped spots to find a genuine
+ * room for the mushroom to actually grow into.
  */
 public class MushroomGroveFeature extends Feature<MushroomGroveFeature.Config> {
     // Matches this mod's established bedrock-safe Y band (see tunnels.json/soul_rift.json/etc.).
     private static final int MIN_Y = -44;
     private static final int MAX_Y = 107;
+    // Giant mushrooms can grow a ~7-tall trunk plus canopy above that - require genuine
+    // headroom, not just a single air-above-solid cell, before accepting a spot.
+    private static final int MIN_CLEARANCE = 10;
 
     public MushroomGroveFeature(Codec<Config> codec) {
         super(codec);
@@ -56,7 +64,10 @@ public class MushroomGroveFeature extends Feature<MushroomGroveFeature.Config> {
         return patchPlaced || mushroomPlaced;
     }
 
-    /** Full vertical scan of the origin's column for the first air cell with sturdy footing. */
+    /**
+     * Full vertical scan of the origin's column for a floor with real headroom above it -
+     * not just the first air-above-solid cell found, which could be a cramped tunnel.
+     */
     private BlockPos findFloor(WorldGenLevel level, BlockPos origin) {
         BlockPos.MutableBlockPos pos = origin.mutable();
         for (int y = MAX_Y; y >= MIN_Y; y--) {
@@ -65,11 +76,25 @@ public class MushroomGroveFeature extends Feature<MushroomGroveFeature.Config> {
                 continue;
             }
             BlockPos below = pos.below();
-            if (level.getBlockState(below).isFaceSturdy(level, below, Direction.UP)) {
+            if (!level.getBlockState(below).isFaceSturdy(level, below, Direction.UP)) {
+                continue;
+            }
+            if (hasClearance(level, pos)) {
                 return pos.immutable();
             }
         }
         return null;
+    }
+
+    private boolean hasClearance(WorldGenLevel level, BlockPos floor) {
+        BlockPos.MutableBlockPos check = floor.mutable();
+        for (int dy = 0; dy < MIN_CLEARANCE; dy++) {
+            check.setY(floor.getY() + dy);
+            if (!level.getBlockState(check).isAir()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public record Config(VegetationPatchConfiguration patch,

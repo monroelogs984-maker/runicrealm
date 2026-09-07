@@ -89,6 +89,11 @@ public final class RunicRealmBlocks {
     // replaceable, noCollission, strength 100, pushReaction DESTROY, noLootTable, liquid(),
     // SoundType.EMPTY. Lazy lambda supplier, not a bare RegistryObject reference - see
     // RunicRealmFluids' class-loading-order note.
+    // FluidType.Properties.lightLevel() (set in RunicRealmFluids) does NOT make the block
+    // actually glow in the world - verified via javap that vanilla's own Blocks.LAVA sets
+    // light level on ITS OWN BlockBehaviour.Properties too (Forge's FluidType.lightLevel is
+    // a separate, non-block-emission concern). That was the real reason the pool wasn't
+    // emitting light: this .lightLevel() call was simply missing here.
     public static final RegistryObject<LiquidBlock> BIOLUMINESCENT_WATER_BLOCK = BLOCKS.register(
             "bioluminescent_water", () -> new LiquidBlock(() -> RunicRealmFluids.BIOLUMINESCENT_WATER.get(),
                     BlockBehaviour.Properties.of()
@@ -96,6 +101,7 @@ public final class RunicRealmBlocks {
                             .replaceable()
                             .noCollission()
                             .strength(100.0F)
+                            .lightLevel(state -> 10)
                             .pushReaction(PushReaction.DESTROY)
                             .noLootTable()
                             .liquid()

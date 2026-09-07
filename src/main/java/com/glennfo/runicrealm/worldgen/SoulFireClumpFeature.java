@@ -22,10 +22,19 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
  * Vanilla's own patch_soul_fire only checks for pre-existing soul soil
  * (Soul Sand Valley's terrain already is soul soil); this dimension's floor
  * is plain stone, so the base has to be placed here too, not just assumed.
+ *
+ * Originally only searched +-6 blocks vertically around each scatter point's
+ * starting Y - same underlying flaw diagnosed and fixed in Cave Root Vine
+ * and the mushroom grove: height_range placement has no relationship to
+ * actual cave shape, so a small local window usually doesn't touch open
+ * space at all. Upgraded to a full-column scan per scatter point, same
+ * fix already applied to the other two features.
  */
 public class SoulFireClumpFeature extends Feature<SoulFireClumpFeature.Config> {
     private static final int RADIUS = 4;
-    private static final int VERTICAL_SEARCH = 6;
+    // Matches this mod's established bedrock-safe Y band (see tunnels.json/soul_rift.json/etc.).
+    private static final int MIN_Y = -44;
+    private static final int MAX_Y = 107;
 
     public SoulFireClumpFeature(Codec<Config> codec) {
         super(codec);
@@ -42,9 +51,9 @@ public class SoulFireClumpFeature extends Feature<SoulFireClumpFeature.Config> {
         for (int i = 0; i < count; i++) {
             int dx = random.nextInt(RADIUS * 2 + 1) - RADIUS;
             int dz = random.nextInt(RADIUS * 2 + 1) - RADIUS;
-            BlockPos.MutableBlockPos pos = origin.offset(dx, 0, dz).mutable();
+            BlockPos column = origin.offset(dx, 0, dz);
 
-            BlockPos floor = findFloor(level, pos);
+            BlockPos floor = findFloor(level, column);
             if (floor == null) {
                 continue;
             }
@@ -56,18 +65,19 @@ public class SoulFireClumpFeature extends Feature<SoulFireClumpFeature.Config> {
         return placedAny;
     }
 
-    /** Searches near pos.y for the first air cell with solid, sturdy footing beneath it. */
-    private BlockPos findFloor(WorldGenLevel level, BlockPos.MutableBlockPos pos) {
-        for (int dy = -VERTICAL_SEARCH; dy <= VERTICAL_SEARCH; dy++) {
-            BlockPos candidate = pos.atY(pos.getY() + dy);
-            BlockState here = level.getBlockState(candidate);
+    /** Full vertical scan of the column for the first air cell with sturdy footing beneath it. */
+    private BlockPos findFloor(WorldGenLevel level, BlockPos column) {
+        BlockPos.MutableBlockPos pos = column.mutable();
+        for (int y = MAX_Y; y >= MIN_Y; y--) {
+            pos.setY(y);
+            BlockState here = level.getBlockState(pos);
             if (!here.isAir()) {
                 continue;
             }
-            BlockPos below = candidate.below();
+            BlockPos below = pos.below();
             BlockState belowState = level.getBlockState(below);
             if (belowState.isFaceSturdy(level, below, Direction.UP)) {
-                return candidate;
+                return pos.immutable();
             }
         }
         return null;
