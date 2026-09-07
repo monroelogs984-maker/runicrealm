@@ -40,7 +40,6 @@ public class RunicPortalBlock extends Block {
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     private static final VoxelShape X_AXIS_AABB = Block.box(0, 0, 6, 16, 16, 10);
     private static final VoxelShape Z_AXIS_AABB = Block.box(6, 0, 0, 10, 16, 16);
-    private static final int MIN_TICKS_IN_PORTAL = 4;
     private static final String PORTAL_TIME_KEY = "RunicRealmPortalTime";
 
     public RunicPortalBlock(BlockBehaviour.Properties properties) {
@@ -113,9 +112,12 @@ public class RunicPortalBlock extends Block {
             return;
         }
 
+        // getPortalWaitTime() is vanilla's own standing-delay hook: 80 ticks for a
+        // survival player (Player overrides it), 1 tick in creative, 0 (instant) for
+        // the base Entity - matches real Nether portal timing instead of a guess.
         CompoundTag data = entity.getPersistentData();
         int time = data.getInt(PORTAL_TIME_KEY) + 1;
-        if (time < MIN_TICKS_IN_PORTAL) {
+        if (time < entity.getPortalWaitTime()) {
             data.putInt(PORTAL_TIME_KEY, time);
             return;
         }

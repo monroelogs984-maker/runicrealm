@@ -1,0 +1,17 @@
+package com.glennfo.runicrealm.worldgen;
+
+import com.glennfo.runicrealm.RunicRealm;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public final class RunicRealmFeatures {
+    public static final DeferredRegister<Feature<?>> FEATURES =
+            DeferredRegister.create(ForgeRegistries.FEATURES, RunicRealm.MODID);
+
+    public static final RegistryObject<Feature<MushroomGroveFeature.Config>> MUSHROOM_GROVE =
+            FEATURES.register("mushroom_grove", () -> new MushroomGroveFeature(MushroomGroveFeature.Config.CODEC));
+
+    private RunicRealmFeatures() {}
+}

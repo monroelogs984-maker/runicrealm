@@ -175,15 +175,23 @@ public final class RunicPortalShape {
         fill(level);
     }
 
+    // 1 block was not enough to reliably feel "open" against arbitrary cave terrain -
+    // carve a real room: 2 blocks deep on both sides of the plane, with a 2-block
+    // margin around the frame's footprint too, instead of hugging its exact outline.
+    private static final int CLEAR_DEPTH = 2;
+    private static final int CLEAR_MARGIN = 2;
+
     private void clearSurroundings(LevelAccessor level) {
         Direction positive = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
         Direction depthDir = axis == Direction.Axis.X ? Direction.NORTH : Direction.WEST;
         BlockState air = Blocks.AIR.defaultBlockState();
-        for (int w = -1; w <= width; w++) {
-            for (int h = -1; h <= height; h++) {
+        for (int w = -1 - CLEAR_MARGIN; w <= width + CLEAR_MARGIN; w++) {
+            for (int h = -1 - CLEAR_MARGIN; h <= height + CLEAR_MARGIN; h++) {
                 BlockPos plane = bottomLeft.relative(positive, w).above(h);
-                level.setBlock(plane.relative(depthDir), air, 18);
-                level.setBlock(plane.relative(depthDir.getOpposite()), air, 18);
+                for (int d = 1; d <= CLEAR_DEPTH; d++) {
+                    level.setBlock(plane.relative(depthDir, d), air, 18);
+                    level.setBlock(plane.relative(depthDir.getOpposite(), d), air, 18);
+                }
             }
         }
     }
