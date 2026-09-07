@@ -25,19 +25,23 @@ import java.util.List;
  * of relying on VineBlock's own multi-face spread (which grows into a 2D
  * blob over time, not a clean strip).
  *
- * First version only ever tested the placement's exact origin position with
- * one fixed random direction, which essentially never lands on a wall -
- * height_range placement has no relationship to actual cave shape, so the
- * origin is usually embedded in solid rock or floating in open air. Fixed by
- * sampling a neighborhood of candidate positions around the origin (like
- * vanilla's own cave-decoration features do internally) until a genuine
- * air-cell-next-to-a-wall spot is found.
+ * Second version sampled a neighborhood of random candidates around the
+ * origin instead of testing only the exact origin, but that still wasn't
+ * reliable enough - Glenn reported still seeing none. Root problem: over the
+ * huge Y range this placement can land in (height_range spans ~150 blocks),
+ * caves/tunnels/pockets are a small fraction of the total volume, so a
+ * modest local search box around one random Y often doesn't touch open space
+ * at all, not just "misses the exact wall." Fixed properly this time: a full
+ * vertical scan of the origin's (x,z) column across the mod's whole
+ * bedrock-safe Y band, same fix already applied to MushroomGroveFeature for
+ * the identical underlying reason. If that column touches a cave anywhere in
+ * the band, this finds it.
  */
 public class CaveRootFeature extends Feature<CaveRootFeature.Config> {
     private static final Direction[] HORIZONTAL = {Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
-    private static final int ATTEMPTS = 32;
-    private static final int HORIZONTAL_RADIUS = 5;
-    private static final int VERTICAL_RADIUS = 6;
+    // Matches this mod's established bedrock-safe Y band (see tunnels.json/soul_rift.json/etc.).
+    private static final int MIN_Y = -44;
+    private static final int MAX_Y = 107;
 
     public CaveRootFeature(Codec<Config> codec) {
         super(codec);
@@ -50,20 +54,17 @@ public class CaveRootFeature extends Feature<CaveRootFeature.Config> {
         BlockPos origin = context.origin();
         int length = context.config().length().sample(random);
 
-        for (int attempt = 0; attempt < ATTEMPTS; attempt++) {
-            int dx = random.nextInt(HORIZONTAL_RADIUS * 2 + 1) - HORIZONTAL_RADIUS;
-            int dy = random.nextInt(VERTICAL_RADIUS * 2 + 1) - VERTICAL_RADIUS;
-            int dz = random.nextInt(HORIZONTAL_RADIUS * 2 + 1) - HORIZONTAL_RADIUS;
-            BlockPos candidate = origin.offset(dx, dy, dz);
-
-            if (!level.getBlockState(candidate).isAir()) {
+        BlockPos.MutableBlockPos pos = origin.mutable();
+        for (int y = MAX_Y; y >= MIN_Y; y--) {
+            pos.setY(y);
+            if (!level.getBlockState(pos).isAir()) {
                 continue;
             }
-            Direction face = pickValidFace(level, candidate, random);
+            Direction face = pickValidFace(level, pos, random);
             if (face == null) {
                 continue;
             }
-            if (placeStrip(level, candidate, face, length)) {
+            if (placeStrip(level, pos.immutable(), face, length)) {
                 return true;
             }
         }
