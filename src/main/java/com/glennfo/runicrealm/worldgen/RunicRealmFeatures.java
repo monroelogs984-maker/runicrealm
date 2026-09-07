@@ -2,6 +2,7 @@ package com.glennfo.runicrealm.worldgen;
 
 import com.glennfo.runicrealm.RunicRealm;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -16,8 +17,8 @@ public final class RunicRealmFeatures {
     public static final RegistryObject<Feature<SoulFireClumpFeature.Config>> SOUL_FIRE_CLUMP =
             FEATURES.register("soul_fire_clump", () -> new SoulFireClumpFeature(SoulFireClumpFeature.Config.CODEC));
 
-    public static final RegistryObject<Feature<CaveRootFeature.Config>> CAVE_ROOT =
-            FEATURES.register("cave_root", () -> new CaveRootFeature(CaveRootFeature.Config.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_ROOT =
+            FEATURES.register("cave_root", () -> new CaveRootFeature(NoneFeatureConfiguration.CODEC));
 
     private RunicRealmFeatures() {}
 }
