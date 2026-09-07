@@ -2,11 +2,14 @@ package com.glennfo.runicrealm.item;
 
 import com.glennfo.runicrealm.RunicRealm;
 import com.glennfo.runicrealm.block.RunicRealmBlocks;
+import com.glennfo.runicrealm.fluid.RunicRealmFluids;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -47,6 +50,19 @@ public final class RunicRealmItems {
 
     public static final RegistryObject<Item> CAVE_ROOT = ITEMS.register("cave_root",
             () -> new BlockItem(RunicRealmBlocks.CAVE_ROOT_VINE.get(), new Item.Properties().food(CAVE_ROOT_FOOD)));
+
+    // Plain, non-edible placer for the vine block itself (matches vanilla's own separate
+    // Vine item) - a second, distinct creative-menu entry alongside the food item above.
+    // Both wrap the same block; only the loot table's own drop (cave_root) matters for
+    // what breaking the vine actually gives you.
+    public static final RegistryObject<Item> CAVE_ROOT_VINE = blockItem(RunicRealmBlocks.CAVE_ROOT_VINE);
+
+    // Properties mirror vanilla's own water_bucket exactly (verified via javap):
+    // craftRemainder(BUCKET), stacksTo(1). Lazy lambda supplier for the same
+    // class-loading-order reason documented in RunicRealmFluids.
+    public static final RegistryObject<Item> BIOLUMINESCENT_WATER_BUCKET = ITEMS.register(
+            "bioluminescent_water_bucket", () -> new BucketItem(() -> RunicRealmFluids.BIOLUMINESCENT_WATER.get(),
+                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     public static final Map<String, RegistryObject<Item>> GLOW_MUSHROOM_ITEMS = new LinkedHashMap<>();
     public static final Map<String, RegistryObject<Item>> GLOWING_MYCELIUM_ITEMS = new LinkedHashMap<>();

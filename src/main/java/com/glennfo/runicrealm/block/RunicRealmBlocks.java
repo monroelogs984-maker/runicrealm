@@ -1,10 +1,12 @@
 package com.glennfo.runicrealm.block;
 
 import com.glennfo.runicrealm.RunicRealm;
+import com.glennfo.runicrealm.fluid.RunicRealmFluids;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -82,6 +84,22 @@ public final class RunicRealmBlocks {
                     .sound(SoundType.VINE)
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY)));
+
+    // Properties mirror vanilla Blocks.WATER exactly (verified via javap): mapColor WATER,
+    // replaceable, noCollission, strength 100, pushReaction DESTROY, noLootTable, liquid(),
+    // SoundType.EMPTY. Lazy lambda supplier, not a bare RegistryObject reference - see
+    // RunicRealmFluids' class-loading-order note.
+    public static final RegistryObject<LiquidBlock> BIOLUMINESCENT_WATER_BLOCK = BLOCKS.register(
+            "bioluminescent_water", () -> new LiquidBlock(() -> RunicRealmFluids.BIOLUMINESCENT_WATER.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.WATER)
+                            .replaceable()
+                            .noCollission()
+                            .strength(100.0F)
+                            .pushReaction(PushReaction.DESTROY)
+                            .noLootTable()
+                            .liquid()
+                            .sound(SoundType.EMPTY)));
 
     // Full 16-color vanilla dye palette (MapColor equivalents per color, verified against
     // vanilla wool/dye block registrations via javap). Keyed by DyeColor's serialized name.

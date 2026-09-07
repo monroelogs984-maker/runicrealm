@@ -21,7 +21,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "runicrealm:bioluminescent_pool"
+    ],
     [
       "runicrealm:giant_spikes"
     ],

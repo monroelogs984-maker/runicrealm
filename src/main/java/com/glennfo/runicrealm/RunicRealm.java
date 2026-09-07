@@ -3,6 +3,7 @@ package com.glennfo.runicrealm;
 import com.glennfo.runicrealm.block.RunicRealmBlocks;
 import com.glennfo.runicrealm.client.RunicRealmClient;
 import com.glennfo.runicrealm.entity.RunicRealmEntities;
+import com.glennfo.runicrealm.fluid.RunicRealmFluids;
 import com.glennfo.runicrealm.item.RunicRealmCreativeTab;
 import com.glennfo.runicrealm.item.RunicRealmItems;
 import com.glennfo.runicrealm.worldgen.RunicRealmFeatures;
@@ -16,6 +17,8 @@ public class RunicRealm {
 
     public RunicRealm() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        RunicRealmFluids.FLUID_TYPES.register(bus);
+        RunicRealmFluids.FLUIDS.register(bus);
         RunicRealmBlocks.BLOCKS.register(bus);
         RunicRealmItems.ITEMS.register(bus);
         RunicRealmCreativeTab.TABS.register(bus);
