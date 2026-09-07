@@ -20,7 +20,9 @@
   "features": [
     [],
     [],
-    [],
+    [
+      "runicrealm:giant_spikes"
+    ],
     [],
     [],
     [],
