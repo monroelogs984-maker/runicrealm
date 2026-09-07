@@ -87,8 +87,8 @@
       {
         "type": "runicrealm:firefly",
         "weight": 15,
-        "minCount": 1,
-        "maxCount": 3
+        "minCount": 2,
+        "maxCount": 6
       }
     ],
     "axolotls": [],
