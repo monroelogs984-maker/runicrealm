@@ -5,6 +5,7 @@ import com.glennfo.runicrealm.block.RunicRealmBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Optional;
@@ -153,8 +154,14 @@ public final class RunicPortalShape {
         }
     }
 
-    /** Builds the full frame (including corners) plus interior at this shape's coordinates. */
+    /**
+     * Builds the full frame (including corners) plus interior at this shape's
+     * coordinates, first clearing a pocket of open space on both sides so the
+     * portal generates exposed rather than embedded in solid rock - mirrors
+     * vanilla nether portals carving space when linking to a fresh location.
+     */
     public void build(LevelAccessor level) {
+        clearSurroundings(level);
         Direction positive = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
         BlockState frameState = RunicRealmBlocks.RUNIC_PORTAL_CRYSTAL.get().defaultBlockState();
         for (int w = -1; w <= width; w++) {
@@ -166,5 +173,18 @@ public final class RunicPortalShape {
             }
         }
         fill(level);
+    }
+
+    private void clearSurroundings(LevelAccessor level) {
+        Direction positive = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
+        Direction depthDir = axis == Direction.Axis.X ? Direction.NORTH : Direction.WEST;
+        BlockState air = Blocks.AIR.defaultBlockState();
+        for (int w = -1; w <= width; w++) {
+            for (int h = -1; h <= height; h++) {
+                BlockPos plane = bottomLeft.relative(positive, w).above(h);
+                level.setBlock(plane.relative(depthDir), air, 18);
+                level.setBlock(plane.relative(depthDir.getOpposite()), air, 18);
+            }
+        }
     }
 }
