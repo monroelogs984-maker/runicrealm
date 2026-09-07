@@ -24,45 +24,48 @@
       "argument1": {
         "type": "minecraft:min",
         "argument1": {
-          "type": "minecraft:squeeze",
-          "argument": {
-            "type": "minecraft:mul",
-            "argument1": 0.64,
-            "argument2": {
-              "type": "minecraft:interpolated",
-              "argument": {
-                "type": "minecraft:blend_density",
+          "type": "minecraft:min",
+          "argument1": {
+            "type": "minecraft:squeeze",
+            "argument": {
+              "type": "minecraft:mul",
+              "argument1": 0.64,
+              "argument2": {
+                "type": "minecraft:interpolated",
                 "argument": {
-                  "type": "minecraft:add",
-                  "argument1": 2.9,
-                  "argument2": {
-                    "type": "minecraft:mul",
-                    "argument1": {
-                      "type": "minecraft:y_clamped_gradient",
-                      "from_value": 0.0,
-                      "from_y": -72,
-                      "to_value": 1.0,
-                      "to_y": -40
-                    },
+                  "type": "minecraft:blend_density",
+                  "argument": {
+                    "type": "minecraft:add",
+                    "argument1": 2.9,
                     "argument2": {
-                      "type": "minecraft:add",
-                      "argument1": -2.5,
+                      "type": "minecraft:mul",
+                      "argument1": {
+                        "type": "minecraft:y_clamped_gradient",
+                        "from_value": 0.0,
+                        "from_y": -72,
+                        "to_value": 1.0,
+                        "to_y": -40
+                      },
                       "argument2": {
                         "type": "minecraft:add",
-                        "argument1": 0.9375,
+                        "argument1": -2.5,
                         "argument2": {
-                          "type": "minecraft:mul",
-                          "argument1": {
-                            "type": "minecraft:y_clamped_gradient",
-                            "from_value": 1.0,
-                            "from_y": 104,
-                            "to_value": 0.0,
-                            "to_y": 128
-                          },
+                          "type": "minecraft:add",
+                          "argument1": 0.9375,
                           "argument2": {
-                            "type": "minecraft:add",
-                            "argument1": -0.9375,
-                            "argument2": "minecraft:nether/base_3d_noise"
+                            "type": "minecraft:mul",
+                            "argument1": {
+                              "type": "minecraft:y_clamped_gradient",
+                              "from_value": 1.0,
+                              "from_y": 104,
+                              "to_value": 0.0,
+                              "to_y": 128
+                            },
+                            "argument2": {
+                              "type": "minecraft:add",
+                              "argument1": -0.9375,
+                              "argument2": "minecraft:nether/base_3d_noise"
+                            }
                           }
                         }
                       }
@@ -71,11 +74,12 @@
                 }
               }
             }
-          }
+          },
+          "argument2": "runicrealm:tunnels"
         },
-        "argument2": "runicrealm:tunnels"
+        "argument2": "runicrealm:soul_rift"
       },
-      "argument2": "runicrealm:soul_rift"
+      "argument2": "runicrealm:connector_veins"
     },
     "fluid_level_floodedness": 0.0,
     "fluid_level_spread": 0.0,
