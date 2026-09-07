@@ -32,8 +32,11 @@ public class ShrineFeature extends Feature<NoneFeatureConfiguration> {
     // Matches this mod's established bedrock-safe Y band (see tunnels.json/soul_rift.json/etc.).
     private static final int MIN_Y = -44;
     private static final int MAX_Y = 107;
-    private static final int ROOM_RADIUS = 6;
-    private static final int ROOM_HEIGHT = 14;
+    // Loosened from 6/14 - Glenn found zero shrines, and requiring that much sustained
+    // horizontal *and* vertical room at every height was likely too strict on top of the
+    // already-low 1/1500 rarity (same fragility as the giant mushroom's headroom check).
+    private static final int ROOM_RADIUS = 5;
+    private static final int ROOM_HEIGHT = 12;
     private static final int PLATFORM_RADIUS = 4;
     private static final int CRYSTAL_HEIGHT = 12;
     private static final ResourceLocation CHEST_LOOT_TABLE =
@@ -103,7 +106,10 @@ public class ShrineFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private void buildCrystal(WorldGenLevel level, BlockPos base) {
-        BlockState crystal = RunicRealmBlocks.RUNIC_CRYSTAL_CLUSTER.get().defaultBlockState();
+        // The shrine's centerpiece is deliberately the Dark Glimmering Crystal specifically -
+        // a distinct "this one is special" landmark look, not randomized like the ordinary
+        // wild speleothems.
+        BlockState crystal = RunicRealmBlocks.DARK_GLIMMERING_CRYSTAL.get().defaultBlockState();
         for (int i = 0; i < CRYSTAL_HEIGHT; i++) {
             level.setBlock(base.above(i), crystal, 3);
         }

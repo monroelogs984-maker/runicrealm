@@ -64,11 +64,8 @@ public final class RunicRealmItems {
             "bioluminescent_water_bucket", () -> new BucketItem(() -> RunicRealmFluids.BIOLUMINESCENT_WATER.get(),
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
-    public static final RegistryObject<Item> RUNIC_CRYSTAL_CLUSTER = blockItem(RunicRealmBlocks.RUNIC_CRYSTAL_CLUSTER);
-
-    // The raw material each cluster block drops - a Speleothem crafting resource.
-    public static final RegistryObject<Item> RUNIC_CRYSTAL = ITEMS.register("runic_crystal",
-            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GLIMMERING_CRYSTAL = blockItem(RunicRealmBlocks.GLIMMERING_CRYSTAL);
+    public static final RegistryObject<Item> DARK_GLIMMERING_CRYSTAL = blockItem(RunicRealmBlocks.DARK_GLIMMERING_CRYSTAL);
 
     public static final Map<String, RegistryObject<Item>> GLOW_MUSHROOM_ITEMS = new LinkedHashMap<>();
     public static final Map<String, RegistryObject<Item>> GLOWING_MYCELIUM_ITEMS = new LinkedHashMap<>();

@@ -107,11 +107,21 @@ public final class RunicRealmBlocks {
                             .liquid()
                             .sound(SoundType.EMPTY)));
 
-    // Crystal Speleothems - the actual formation block, always drops a Runic Crystal item
-    // when broken. Placeholder tuning mirrors amethyst cluster (strength/sound), faint glow.
-    public static final RegistryObject<Block> RUNIC_CRYSTAL_CLUSTER = BLOCKS.register("runic_crystal_cluster",
+    // Crystal Speleothems - the two formation materials Glenn named directly (white/dark
+    // blue), each a simple decorative block that drops itself (no separate raw-material
+    // item, matching vanilla amethyst_block's own convention). Placeholder tuning mirrors
+    // amethyst cluster (strength/sound), faint glow.
+    public static final RegistryObject<Block> GLIMMERING_CRYSTAL = BLOCKS.register("glimmering_crystal",
             () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .mapColor(MapColor.SNOW)
+                    .strength(1.5F)
+                    .sound(SoundType.AMETHYST)
+                    .lightLevel(state -> 8)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> DARK_GLIMMERING_CRYSTAL = BLOCKS.register("dark_glimmering_crystal",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLUE)
                     .strength(1.5F)
                     .sound(SoundType.AMETHYST)
                     .lightLevel(state -> 8)

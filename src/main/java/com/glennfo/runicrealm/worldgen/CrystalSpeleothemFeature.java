@@ -14,19 +14,26 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 /**
- * A straight vertical column of Runic Crystal Cluster blocks - a stalagmite
- * rising from a floor or a stalactite hanging from a ceiling (picked
- * randomly per attempt, matching Glenn's "stalactites/stalagmites" ask).
+ * A straight vertical column of crystal blocks - a stalagmite rising from a
+ * floor or a stalactite hanging from a ceiling (picked randomly per call).
  * Column height is fully config-driven: 1 for the common "small" variant
- * (a single crystal nub, drops 1 crystal), 10-15 for the rare "large"
- * variant (drops 10-15 crystals total, one per block broken - the total
- * yield falls naturally out of the column height rather than needing a
- * separate drop-count mechanic).
+ * (a single crystal nub), 10-15 for the rare "large" variant (each block
+ * drops itself, so total yield falls naturally out of column height).
+ * Material is picked randomly per formation between Glimmering Crystal
+ * (white) and Dark Glimmering Crystal (dark blue), per Glenn's ask.
+ *
+ * First version searched a small +-10 vertical / +-4 horizontal window
+ * around one random height_range Y pick and never found anything - the
+ * exact same flaw already diagnosed and fixed for Cave Root Vine and the
+ * mushroom grove (height_range has no relationship to real cave shape, and
+ * a small local window usually doesn't touch open space at all over this
+ * dimension's ~150-block Y range). Fixed the same way: a full vertical
+ * scan of the origin's column across the mod's whole bedrock-safe Y band.
  */
 public class CrystalSpeleothemFeature extends Feature<CrystalSpeleothemFeature.Config> {
-    private static final int ATTEMPTS = 16;
-    private static final int RADIUS = 4;
-    private static final int VERTICAL_SEARCH = 10;
+    // Matches this mod's established bedrock-safe Y band (see tunnels.json/soul_rift.json/etc.).
+    private static final int MIN_Y = -44;
+    private static final int MAX_Y = 107;
 
     public CrystalSpeleothemFeature(Codec<Config> codec) {
         super(codec);
@@ -38,57 +45,42 @@ public class CrystalSpeleothemFeature extends Feature<CrystalSpeleothemFeature.C
         RandomSource random = context.random();
         BlockPos origin = context.origin();
         int height = context.config().height().sample(random);
-
-        for (int attempt = 0; attempt < ATTEMPTS; attempt++) {
-            int dx = random.nextInt(RADIUS * 2 + 1) - RADIUS;
-            int dz = random.nextInt(RADIUS * 2 + 1) - RADIUS;
-            BlockPos column = origin.offset(dx, 0, dz);
-
-            boolean fromFloor = random.nextBoolean();
-            BlockPos start = findAnchor(level, column, fromFloor);
-            if (start == null) {
-                continue;
-            }
-            Direction grow = fromFloor ? Direction.UP : Direction.DOWN;
-            if (!hasClearance(level, start, grow, height)) {
-                continue;
-            }
-            placeColumn(level, start, grow, height);
-            return true;
-        }
-        return false;
-    }
-
-    /** Searches near column.y for an air cell resting on a floor (fromFloor) or under a ceiling. */
-    private BlockPos findAnchor(WorldGenLevel level, BlockPos column, boolean fromFloor) {
+        boolean fromFloor = random.nextBoolean();
         Direction support = fromFloor ? Direction.DOWN : Direction.UP;
-        BlockPos.MutableBlockPos pos = column.mutable();
-        for (int dy = -VERTICAL_SEARCH; dy <= VERTICAL_SEARCH; dy++) {
-            pos.setY(column.getY() + dy);
+        Direction grow = fromFloor ? Direction.UP : Direction.DOWN;
+        BlockState crystal = (random.nextBoolean()
+                ? RunicRealmBlocks.GLIMMERING_CRYSTAL.get()
+                : RunicRealmBlocks.DARK_GLIMMERING_CRYSTAL.get()).defaultBlockState();
+
+        BlockPos.MutableBlockPos pos = origin.mutable();
+        for (int y = MAX_Y; y >= MIN_Y; y--) {
+            pos.setY(y);
             if (!level.getBlockState(pos).isAir()) {
                 continue;
             }
             BlockPos supportPos = pos.relative(support);
-            if (level.getBlockState(supportPos).isFaceSturdy(level, supportPos, support.getOpposite())) {
-                return pos.immutable();
+            if (!level.getBlockState(supportPos).isFaceSturdy(level, supportPos, support.getOpposite())) {
+                continue;
+            }
+            BlockPos start = pos.immutable();
+            if (hasClearance(level, start, grow, height)) {
+                placeColumn(level, start, grow, height, crystal);
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     private boolean hasClearance(WorldGenLevel level, BlockPos start, Direction grow, int height) {
-        BlockPos.MutableBlockPos check = start.mutable();
         for (int i = 0; i < height; i++) {
-            check.set(start.relative(grow, i));
-            if (!level.getBlockState(check).isAir()) {
+            if (!level.getBlockState(start.relative(grow, i)).isAir()) {
                 return false;
             }
         }
         return true;
     }
 
-    private void placeColumn(WorldGenLevel level, BlockPos start, Direction grow, int height) {
-        BlockState crystal = RunicRealmBlocks.RUNIC_CRYSTAL_CLUSTER.get().defaultBlockState();
+    private void placeColumn(WorldGenLevel level, BlockPos start, Direction grow, int height, BlockState crystal) {
         for (int i = 0; i < height; i++) {
             level.setBlock(start.relative(grow, i), crystal, 3);
         }

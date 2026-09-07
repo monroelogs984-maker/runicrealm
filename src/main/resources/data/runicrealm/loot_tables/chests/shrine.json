@@ -10,8 +10,23 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 10,
-          "name": "runicrealm:runic_crystal",
+          "weight": 5,
+          "name": "runicrealm:glimmering_crystal",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 3.0,
+                "max": 8.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "runicrealm:dark_glimmering_crystal",
           "functions": [
             {
               "function": "minecraft:set_count",
