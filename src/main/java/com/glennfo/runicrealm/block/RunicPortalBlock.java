@@ -41,6 +41,7 @@ public class RunicPortalBlock extends Block {
     private static final VoxelShape X_AXIS_AABB = Block.box(0, 0, 6, 16, 16, 10);
     private static final VoxelShape Z_AXIS_AABB = Block.box(6, 0, 0, 10, 16, 16);
     private static final String PORTAL_TIME_KEY = "RunicRealmPortalTime";
+    private static final int PORTAL_COOLDOWN_TICKS = 100;
 
     public RunicPortalBlock(BlockBehaviour.Properties properties) {
         super(properties);
@@ -136,7 +137,14 @@ public class RunicPortalBlock extends Block {
             return;
         }
 
-        entity.setPortalCooldown();
+        // The no-arg setPortalCooldown() uses Entity#getDimensionChangingDelay(), which
+        // Player overrides down to 10 ticks (0.5s, verified via javap) - vanilla leans on
+        // the standing-delay (getPortalWaitTime()) as the real anti-instant-retrigger
+        // guard instead, but that's only 1 tick in creative. We land players directly
+        // inside the destination portal, so cooldown needs to carry the whole grace
+        // period itself: 100 ticks (5s), set explicitly rather than relying on the
+        // (too-short-for-us) default.
+        entity.setPortalCooldown(PORTAL_COOLDOWN_TICKS);
         entity.changeDimension(targetLevel, new RunicPortalTeleporter(shape.get()));
     }
 }
