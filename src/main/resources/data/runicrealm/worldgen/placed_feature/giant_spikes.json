@@ -2,6 +2,10 @@
   "feature": "runicrealm:giant_spikes",
   "placement": [
     {
+      "type": "minecraft:rarity_filter",
+      "chance": 50
+    },
+    {
       "type": "minecraft:in_square"
     },
     {

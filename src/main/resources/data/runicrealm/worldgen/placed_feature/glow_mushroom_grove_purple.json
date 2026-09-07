@@ -2,6 +2,10 @@
   "feature": "runicrealm:glow_mushroom_grove_purple",
   "placement": [
     {
+      "type": "minecraft:rarity_filter",
+      "chance": 25
+    },
+    {
       "type": "minecraft:in_square"
     },
     {

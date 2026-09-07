@@ -1,23 +1,16 @@
 {
   "feature": "runicrealm:glow_mushroom_scatter_purple",
   "placement": [
-    {
-      "type": "minecraft:in_square"
-    },
+    { "type": "minecraft:rarity_filter", "chance": 16 },
+    { "type": "minecraft:in_square" },
     {
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
-        "min_inclusive": {
-          "absolute": -60
-        },
-        "max_inclusive": {
-          "absolute": 100
-        }
+        "min_inclusive": { "absolute": -60 },
+        "max_inclusive": { "absolute": 100 }
       }
     },
-    {
-      "type": "minecraft:biome"
-    }
+    { "type": "minecraft:biome" }
   ]
 }
