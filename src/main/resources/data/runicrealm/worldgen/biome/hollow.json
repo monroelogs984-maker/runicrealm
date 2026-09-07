@@ -25,7 +25,10 @@
       "runicrealm:bioluminescent_pool"
     ],
     [
-      "runicrealm:giant_spikes"
+      "runicrealm:giant_spikes",
+      "runicrealm:crystal_speleothem_small",
+      "runicrealm:crystal_speleothem_large",
+      "runicrealm:shrine"
     ],
     [],
     [],
@@ -80,7 +83,14 @@
   ],
   "spawn_costs": {},
   "spawners": {
-    "ambient": [],
+    "ambient": [
+      {
+        "type": "runicrealm:firefly",
+        "weight": 15,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
     "axolotls": [],
     "creature": [],
     "misc": [],

@@ -27,6 +27,7 @@ public final class RunicRealmClient {
     // equipment differs.
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(RunicRealmEntities.MINER_SKELETON.get(), SkeletonRenderer::new);
+        event.registerEntityRenderer(RunicRealmEntities.FIREFLY.get(), FireflyRenderer::new);
     }
 
     private RunicRealmClient() {}

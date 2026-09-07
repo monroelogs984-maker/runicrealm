@@ -21,10 +21,18 @@ public final class RunicRealmEntities {
                     .clientTrackingRange(8)
                     .build("miner_skeleton"));
 
+    public static final RegistryObject<EntityType<Firefly>> FIREFLY =
+            ENTITY_TYPES.register("firefly", () -> EntityType.Builder
+                    .of(Firefly::new, MobCategory.AMBIENT)
+                    .sized(0.3F, 0.3F)
+                    .clientTrackingRange(6)
+                    .build("firefly"));
+
     // AbstractSkeleton.createAttributes() is vanilla's own skeleton attribute builder -
     // reused directly so health/speed/etc. match a normal skeleton exactly.
     public static void onAttributeCreate(EntityAttributeCreationEvent event) {
         event.put(MINER_SKELETON.get(), AbstractSkeleton.createAttributes().build());
+        event.put(FIREFLY.get(), Firefly.createAttributes().build());
     }
 
     private RunicRealmEntities() {}

@@ -107,6 +107,16 @@ public final class RunicRealmBlocks {
                             .liquid()
                             .sound(SoundType.EMPTY)));
 
+    // Crystal Speleothems - the actual formation block, always drops a Runic Crystal item
+    // when broken. Placeholder tuning mirrors amethyst cluster (strength/sound), faint glow.
+    public static final RegistryObject<Block> RUNIC_CRYSTAL_CLUSTER = BLOCKS.register("runic_crystal_cluster",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .strength(1.5F)
+                    .sound(SoundType.AMETHYST)
+                    .lightLevel(state -> 8)
+                    .pushReaction(PushReaction.DESTROY)));
+
     // Full 16-color vanilla dye palette (MapColor equivalents per color, verified against
     // vanilla wool/dye block registrations via javap). Keyed by DyeColor's serialized name.
     public static final Map<String, MapColor> DYE_MAP_COLORS = new LinkedHashMap<>();

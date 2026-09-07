@@ -20,5 +20,12 @@ public final class RunicRealmFeatures {
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_ROOT =
             FEATURES.register("cave_root", () -> new CaveRootFeature(NoneFeatureConfiguration.CODEC));
 
+    public static final RegistryObject<Feature<CrystalSpeleothemFeature.Config>> CRYSTAL_SPELEOTHEM =
+            FEATURES.register("crystal_speleothem",
+                    () -> new CrystalSpeleothemFeature(CrystalSpeleothemFeature.Config.CODEC));
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> SHRINE =
+            FEATURES.register("shrine", () -> new ShrineFeature(NoneFeatureConfiguration.CODEC));
+
     private RunicRealmFeatures() {}
 }

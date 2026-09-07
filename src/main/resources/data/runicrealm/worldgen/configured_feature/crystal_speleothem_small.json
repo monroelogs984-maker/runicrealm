@@ -1,0 +1,9 @@
+{
+  "type": "runicrealm:crystal_speleothem",
+  "config": {
+    "height": {
+      "type": "minecraft:constant",
+      "value": 1
+    }
+  }
+}
