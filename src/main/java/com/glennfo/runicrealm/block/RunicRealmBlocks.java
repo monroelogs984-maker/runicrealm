@@ -1,7 +1,9 @@
 package com.glennfo.runicrealm.block;
 
 import com.glennfo.runicrealm.RunicRealm;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -52,13 +54,17 @@ public final class RunicRealmBlocks {
                     .pushReaction(PushReaction.BLOCK)));
 
     // Ore-like light source scattered through the dimension for baseline visibility.
-    // Placeholder texture reuses vanilla glowstone pending custom art.
+    // Placeholder texture reuses vanilla glowstone pending custom art. DropExperienceBlock
+    // is vanilla's own Nether Quartz Ore class (verified via javap) - reused directly so
+    // it drops XP on mining like a real ore; 6-15 is 3x Nether Quartz's own 2-5 range
+    // (also verified via javap, not guessed).
     public static final RegistryObject<Block> LUMINOUS_QUARTZ_ORE = BLOCKS.register("luminous_quartz_ore",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.QUARTZ)
                     .strength(3.0F)
                     .sound(SoundType.GLASS)
-                    .lightLevel(state -> 13)));
+                    .lightLevel(state -> 13),
+                    UniformInt.of(6, 15)));
 
     // Full 16-color vanilla dye palette (MapColor equivalents per color, verified against
     // vanilla wool/dye block registrations via javap). Keyed by DyeColor's serialized name.

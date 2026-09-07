@@ -26,6 +26,11 @@ public final class RunicRealmItems {
     public static final RegistryObject<Item> LUMINOUS_QUARTZ_ORE = ITEMS.register("luminous_quartz_ore",
             () -> new BlockItem(RunicRealmBlocks.LUMINOUS_QUARTZ_ORE.get(), new Item.Properties()));
 
+    // The raw material Luminous Quartz Ore actually drops (mirrors vanilla quartz, not the
+    // ore block itself).
+    public static final RegistryObject<Item> LUMINOUS_QUARTZ = ITEMS.register("luminous_quartz",
+            () -> new Item(new Item.Properties()));
+
     public static final Map<String, RegistryObject<Item>> GLOW_MUSHROOM_ITEMS = new LinkedHashMap<>();
     public static final Map<String, RegistryObject<Item>> GLOWING_MYCELIUM_ITEMS = new LinkedHashMap<>();
     public static final Map<String, RegistryObject<Item>> GLOW_MUSHROOM_CAP_ITEMS = new LinkedHashMap<>();

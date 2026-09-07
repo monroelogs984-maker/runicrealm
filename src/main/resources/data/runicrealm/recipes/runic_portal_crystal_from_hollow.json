@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "runicrealm:luminous_quartz" },
+    { "item": "minecraft:diorite" },
+    { "item": "minecraft:glow_lichen" }
+  ],
+  "result": {
+    "item": "runicrealm:runic_portal_crystal"
+  }
+}
