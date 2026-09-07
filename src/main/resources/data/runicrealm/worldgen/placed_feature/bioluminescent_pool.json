@@ -2,10 +2,6 @@
   "feature": "runicrealm:bioluminescent_pool",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 9
-    },
-    {
       "type": "minecraft:in_square"
     },
     {
@@ -36,7 +32,11 @@
           },
           {
             "type": "minecraft:inside_world_bounds",
-            "offset": [0, -5, 0]
+            "offset": [
+              0,
+              -5,
+              0
+            ]
           }
         ]
       }
