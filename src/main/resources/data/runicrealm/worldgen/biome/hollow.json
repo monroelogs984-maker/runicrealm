@@ -29,11 +29,14 @@
     [],
     [],
     [
-      "runicrealm:luminous_quartz_ore"
+      "runicrealm:luminous_quartz_ore",
+      "runicrealm:diorite_deposit_lower",
+      "runicrealm:diorite_deposit_upper"
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:glowstone_extra"
+      "minecraft:glowstone_extra",
+      "runicrealm:soul_fire_clump"
     ],
     [],
     [
@@ -78,7 +81,14 @@
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "runicrealm:miner_skeleton",
+        "weight": 50,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

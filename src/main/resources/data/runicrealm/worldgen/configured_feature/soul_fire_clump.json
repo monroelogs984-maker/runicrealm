@@ -1,0 +1,12 @@
+{
+  "type": "runicrealm:soul_fire_clump",
+  "config": {
+    "count": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 5,
+        "max_inclusive": 7
+      }
+    }
+  }
+}

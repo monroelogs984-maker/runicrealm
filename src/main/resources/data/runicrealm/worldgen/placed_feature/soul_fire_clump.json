@@ -1,0 +1,27 @@
+{
+  "feature": "runicrealm:soul_fire_clump",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 39
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "above_bottom": 20
+        },
+        "max_inclusive": {
+          "absolute": 107
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

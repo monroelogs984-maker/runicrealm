@@ -13,5 +13,8 @@ public final class RunicRealmFeatures {
     public static final RegistryObject<Feature<MushroomGroveFeature.Config>> MUSHROOM_GROVE =
             FEATURES.register("mushroom_grove", () -> new MushroomGroveFeature(MushroomGroveFeature.Config.CODEC));
 
+    public static final RegistryObject<Feature<SoulFireClumpFeature.Config>> SOUL_FIRE_CLUMP =
+            FEATURES.register("soul_fire_clump", () -> new SoulFireClumpFeature(SoulFireClumpFeature.Config.CODEC));
+
     private RunicRealmFeatures() {}
 }
